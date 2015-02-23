@@ -1,0 +1,75 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+CHEF_PATH = "../chef"
+SYNC_PATH = "../"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "calendar"
+  config.vm.box_url = "package.box"
+  config.vm.network :forwarded_port, guest: 3000, host: 3030
+  config.vm.hostname = "railsdev.duyphan.com"
+  config.vm.network :private_network, ip: "192.168.33.10"
+  config.ssh.forward_agent = true
+  config.ssh.forward_x11   = true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize(["modifyvm", :id, "--natdnshostresolver1", "off"  ])
+    vb.customize(["modifyvm", :id, "--natdnsproxy1",        "off"  ])
+    vb.customize(["modifyvm", :id, "--memory", "2048"])
+  end
+
+  config.vm.synced_folder "../../mycalendar", "/mycalendar"
+  
+
+  # Enable provisioning with chef solo, specifying a cookbooks path, roles
+  # path, and data_bags path (all relative to this Vagrantfile), and adding
+  # some recipes and/or roles.
+  
+  # if Vagrant.has_plugin?('vagrant-omnibus')
+  #   config.omnibus.chef_version = :latest
+  # end
+
+  # # Your organization name for hosted Chef 
+  # orgname = "dpchef123"
+
+  # node = ENV['NODE']
+  # node ||= "vagrant-lot"
+
+  # config.vm.provision :chef_client do |chef|
+  #   chef.chef_server_url = "https://api.opscode.com/organizations/#{orgname}"
+  #   chef.validation_key_path = "#{CHEF_PATH}/.chef/#{orgname}-validator.pem"
+  #   chef.validation_client_name = "#{orgname}-validator"
+  #   chef.encrypted_data_bag_secret_key_path = "#{CHEF_PATH}/.chef/encrypted_data_bag_secret"
+  #   chef.node_name = "#{node}"
+  #   chef.provisioning_path = "/etc/chef"
+  #   chef.log_level = :debug
+  #   chef.environment = "lot-dev"
+  #   chef.add_role("app")
+  # end
+
+  # Enable provisioning with chef server, specifying the chef server URL,
+  # and the path to the validation key (relative to this Vagrantfile).
+  #
+  # The Opscode Platform uses HTTPS. Substitute your organization for
+  # ORGNAME in the URL and validation key.
+  #
+  # If you have your own Chef Server, use the appropriate URL, which may be
+  # HTTP instead of HTTPS depending on your configuration. Also change the
+  # validation key to validation.pem.
+  #
+  # config.vm.provision :chef_client do |chef|
+  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
+  #   chef.validation_key_path = "ORGNAME-validator.pem"
+  # end
+  #
+  # If you're using the Opscode platform, your validator client is
+  # ORGNAME-validator, replacing ORGNAME with your organization name.
+  #
+  # If you have your own Chef Server, the default validation client name is
+  # chef-validator, unless you changed the configuration.
+  #
+  # chef.validation_client_name = "ORGNAME-validator"
+end
