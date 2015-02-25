@@ -21,6 +21,8 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+gem 'therubyracer',  platforms: :ruby
+
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
@@ -34,6 +36,12 @@ end
 # gem 'capistrano-rails', group: :development
 
 gem 'unicorn'
+
+group :development do
+  gem 'capistrano-rails'
+  gem 'rvm-capistrano'
+  # gem 'capistrano-rbenv', '~> 2.0', require: false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
