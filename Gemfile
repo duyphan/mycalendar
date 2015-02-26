@@ -38,6 +38,7 @@ end
 gem 'unicorn'
 
 group :development do
+	gem 'capistrano'
   gem 'capistrano-rails'
   gem 'rvm-capistrano'
   # gem 'capistrano-rbenv', '~> 2.0', require: false

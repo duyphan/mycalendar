@@ -15,7 +15,7 @@
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'uvo15r7dmv8u5j3e8ew.vm.cld.sr', user: 'deployer', roles: %w{web app}
+server 'uvo1n5thadzh0pht465.vm.cld.sr', user: 'deployer', roles: %w{web app}
 
 
 # Custom SSH Options
