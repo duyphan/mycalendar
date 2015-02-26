@@ -6,6 +6,8 @@ require "rvm/capistrano"
 set :application, 'mycalendar'
 set :repo_url, 'git@github.com:duyphan/mycalendar.git'
 # set :rbenv_ruby, '2.1.2'
+# 
+set :pty, true
 
 set :rvm_ruby_string, :local 
 set :rvm_autolibs_flag, "read-only"
@@ -68,9 +70,10 @@ namespace :deploy do
 
 	desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "service mycalendar restart"  ## -> line you should add
-    end
+  	invoke 'unicorn:restart'
+    # on roles(:app), in: :sequence, wait: 5 do
+    #   execute "service mycalendar restart"  ## -> line you should add
+    # end
   end
 
   after :publishing, :restart
