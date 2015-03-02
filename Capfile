@@ -20,6 +20,8 @@ require 'capistrano/rails'
 # require 'capistrano/rvm'
 require 'capistrano3/unicorn'
 require 'capistrano/bundler'
+require 'capistrano/rails/migrations'
+require 'capistrano/rails/assets'
 
 # require 'capistrano/rvm'
 # require 'capistrano/rbenv'

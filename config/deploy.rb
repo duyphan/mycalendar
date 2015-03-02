@@ -7,7 +7,7 @@ set :application, 'mycalendar'
 set :repo_url, 'git@github.com:duyphan/mycalendar.git'
 # set :rbenv_ruby, '2.1.2'
 # 
-set :pty, true
+# set :pty, true
 
 set :rvm_ruby_string, :local 
 set :rvm_autolibs_flag, "read-only"
@@ -17,13 +17,13 @@ set :rvm_autolibs_flag, "read-only"
 #   path: '/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
 # }
 
-set :rails_env,       "production"
-# set :deploy_to,       "/home/deployer/apps/my_site"
+# set :rails_env,       "production"
+# # set :deploy_to,       "/home/deployer/apps/my_site"
 
-# default_environment["RAILS_ENV"] = 'production'
+# # default_environment["RAILS_ENV"] = 'production'
 
-set :user,            "deployer"
-set :group,           "deployer"
+# set :user,            "deployer"
+# set :group,           "deployer"
 # set :use_sudo,        false
 
 # Default branch is :master
@@ -70,10 +70,9 @@ namespace :deploy do
 
 	desc 'Restart application'
   task :restart do
-  	invoke 'unicorn:restart'
-    # on roles(:app), in: :sequence, wait: 5 do
-    #   execute "service mycalendar restart"  ## -> line you should add
-    # end
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo service mycalendar restart"  ## -> line you should add
+    end
   end
 
   after :publishing, :restart
